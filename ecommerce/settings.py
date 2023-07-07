@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'store',
     'customers',
     'corsheaders'
-
 ]
 
 MIDDLEWARE = [
@@ -87,7 +86,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-ALLOWED_HOSTS = ['0.0.0.0','34.125.174.126','localhost']
+ALLOWED_HOSTS = ['*']
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

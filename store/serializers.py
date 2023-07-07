@@ -60,9 +60,10 @@ class FilterSerializer(serializers.ModelSerializer):
         if product.category.category_name=='perfumes':
             return 'Accessories'
         return product.category.category_name.capitalize()
+    
     class Meta:
         model = Product 
-        fields=['id','name','description','type','brand','price','size','filter','price_after_sale','color','image']
+        fields=['id','name','description','type','brand','category','price','size','filter','price_after_sale','color','image']
 class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand 

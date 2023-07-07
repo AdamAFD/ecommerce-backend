@@ -13,6 +13,9 @@ matplotlib = "*"
 django-filter = "*"
 six = "*"
 djoser = "*"
+pip = "*"
+install = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
