@@ -46,56 +46,57 @@ class MainProductViewSet(ListCreateAPIView):
 class AllMenViewSet(ListAPIView):
     serializer_class = FilterSerializer 
     lookup_field = 'id'
-    def get(self, request, *args, **kwargs):
+    def get(self, request, args, **kwargs):
         if 'id' in kwargs:
-            return self.retrieve(request, *args, **kwargs)
-        return self.list(request, *args, **kwargs)
+            return self.retrieve(request,args, kwargs)
+        return self.list(request, *args, kwargs)
     queryset =  Product.objects.filter(gender='M').all()
     def get_queryset(self):
         queryset=Product.objects.filter(gender='M')
-        query_params = QueryDict(self.request.GET.urlencode())
-        filter = query_params.getlist("filter")
+        filter = self.request.query_params.get("filter")
         if filter:
             if filter=='Perfumes':
                 filter='Accessories'
-            return queryset.filter(gender='M').filter(category__category_name__in=filter)
+            return queryset.filter(gender='M').filter(category__category_name=filter)
         return queryset
+
 
 class SalesViewSet(ListAPIView,RetrieveAPIView):
     serializer_class = FilterSerializer 
     lookup_field = 'id'
-    def get(self, request, *args, **kwargs):
+    def get(self, request, args, **kwargs):
         if 'id' in kwargs:
-            return self.retrieve(request, *args, **kwargs)
-        return self.list(request, *args, **kwargs)
+            return self.retrieve(request,args, kwargs)
+        return self.list(request, *args, kwargs)
     queryset =  Product.objects.filter(gender='S').all()
     def get_queryset(self):
         queryset = Product.objects.filter(gender='S')
-        query_params = QueryDict(self.request.GET.urlencode())
-        filter = query_params.getlist("filter")
+        # query_params = QueryDict(self.request.GET.urlencode())
+
+        filter = self.request.query_params.get("filter")
         if filter:
             if filter=='Perfumes':
                 filter='Accessories'
-            return queryset.filter(gender='S').filter(category__category_name__in=filter)
+            return queryset.filter(gender='S').filter(category__category_name=filter)
         return queryset
 #*************************women classes ********************
 
 class AllWomenViewSet(ListAPIView):
     serializer_class = FilterSerializer 
     lookup_field = 'id'
-    def get(self, request, *args, **kwargs):
+    def get(self, request,args, kwargs):
         if 'id' in kwargs:
-            return self.retrieve(request, *args, **kwargs)
+            return self.retrieve(request, *args, kwargs)
         return self.list(request, *args, **kwargs)
     queryset =  Product.objects.filter(gender='W').all()
     def get_queryset(self):
         queryset=Product.objects.filter(gender='W')
-        query_params = QueryDict(self.request.GET.urlencode())
-        filter = query_params.getlist("filter")
+        # query_params = QueryDict(self.request.GET.urlencode())
+        filter = self.request.query_params.get("filter")
         if filter:
             if filter=='Perfumes':
                 filter='Accessories'
-            return queryset.filter(gender='W').filter(category__category_name__in=filter)
+            return queryset.filter(gender='W').filter(category__category_name=filter)
         return queryset
 
 #********************************new ************************
