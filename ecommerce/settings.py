@@ -86,8 +86,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-ALLOWED_HOSTS = ['*']
 
+ALLOWED_HOSTS = ['0.0.0.0','164.92.236.11','localhost']
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 # AUTH_USER_MOL = 'customers.User'

@@ -57,7 +57,7 @@ class FilterSerializer(serializers.ModelSerializer):
         return str(round(product.price,2)) +' EGP'
     filter = serializers.SerializerMethodField()
     def get_filter(self,product:Product):
-        if product.category.category_name=='perfumes':
+        if product.category.category_name=='    ':
             return 'Accessories'
         return product.category.category_name.capitalize()
     
