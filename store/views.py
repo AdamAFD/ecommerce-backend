@@ -44,59 +44,85 @@ class MainProductViewSet(ListCreateAPIView):
 
     
 class AllMenViewSet(ListAPIView):
-    serializer_class = FilterSerializer 
     # lookup_field = 'id'
     # def get(self, request, args, **kwargs):
     #     if 'id' in kwargs:
     #         return self.retrieve(request,args, kwargs)
     #     return self.list(request, *args, kwargs)
-    queryset =  Product.objects.filter(gender='M').all()
+    serializer_class = ProductSerializer 
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = {'price':['gt','lt']}
+
     def get_queryset(self):
-        queryset=Product.objects.filter(gender='M')
-        filter = self.request.query_params.get("category")
-        if filter:
-            if filter=='Perfumes':
-                filter='Accessories'
-            return queryset.filter(gender='M').filter(category__category_name=filter)
+        queryset = Product.objects.filter(gender="M")
+        # types = ["Perfumes", "Sunglasses", "Bracelet", "Watches", "Shoes", "T-shirts", "Blouse", "Pullover", "Jackets", "Pants", "Bags"]
+        # brands = ['zara', 'dior', 'rolex', 'nike', 'louis vuitton', 'rayban', 'adidas']
+        # genders = ['M', 'F', 'S']
+
+        query_params = QueryDict(self.request.GET.urlencode())
+
+        brand_filters = query_params.getlist("brand")
+        type_filters = query_params.getlist("type")
+        gender_filters = query_params.getlist("gender")
+
+        if gender_filters:
+            queryset = queryset.filter(gender__in=gender_filters)
+        if brand_filters:
+            queryset = queryset.filter(brand__brand_name__in=brand_filters)
+        if type_filters:
+            queryset = queryset.filter(type__in=type_filters)
         return queryset
 
 
 class SalesViewSet(ListAPIView,RetrieveAPIView):
-    serializer_class = FilterSerializer 
-    # lookup_field = 'id'
-    # def get(self, request, args, **kwargs):
-    #     if 'id' in kwargs:
-    #         return self.retrieve(request,args, kwargs)
-    #     return self.list(request, *args, kwargs)
-    queryset =  Product.objects.filter(gender='S').all()
+    serializer_class = ProductSerializer 
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = {'price':['gt','lt']}
+
     def get_queryset(self):
         queryset = Product.objects.filter(gender='S')
-        # query_params = QueryDict(self.request.GET.urlencode())
+        # types = ["Perfumes", "Sunglasses", "Bracelet", "Watches", "Shoes", "T-shirts", "Blouse", "Pullover", "Jackets", "Pants", "Bags"]
+        # brands = ['zara', 'dior', 'rolex', 'nike', 'louis vuitton', 'rayban', 'adidas']
+        # genders = ['M', 'F', 'S']
 
-        filter = self.request.query_params.get("category")
-        if filter:
-            if filter=='Perfumes':
-                filter='Accessories'
-            return queryset.filter(gender='S').filter(category__category_name=filter)
+        query_params = QueryDict(self.request.GET.urlencode())
+
+        brand_filters = query_params.getlist("brand")
+        type_filters = query_params.getlist("type")
+        gender_filters = query_params.getlist("gender")
+
+        if gender_filters:
+            queryset = queryset.filter(gender__in=gender_filters)
+        if brand_filters:
+            queryset = queryset.filter(brand__brand_name__in=brand_filters)
+        if type_filters:
+            queryset = queryset.filter(type__in=type_filters)
         return queryset
 #*************************women classes ********************
 
 class AllWomenViewSet(ListAPIView):
-    serializer_class = FilterSerializer 
-    # lookup_field = 'id'
-    # def get(self, request,args, kwargs):
-    #     if 'id' in kwargs:
-    #         return self.retrieve(request, *args, kwargs)
-    #     return self.list(request, *args, **kwargs)
-    queryset =  Product.objects.filter(gender='W').all()
+    serializer_class = ProductSerializer 
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = {'price':['gt','lt']}
+
     def get_queryset(self):
-        queryset=Product.objects.filter(gender='W')
-        # query_params = QueryDict(self.request.GET.urlencode())
-        filter = self.request.query_params.get("category")
-        if filter:
-            if filter=='Perfumes':
-                filter='Accessories'
-            return queryset.filter(gender='W').filter(category__category_name=filter)
+        queryset = Product.objects.filter(gender="W")
+        # types = ["Perfumes", "Sunglasses", "Bracelet", "Watches", "Shoes", "T-shirts", "Blouse", "Pullover", "Jackets", "Pants", "Bags"]
+        # brands = ['zara', 'dior', 'rolex', 'nike', 'louis vuitton', 'rayban', 'adidas']
+        # genders = ['M', 'F', 'S']
+
+        query_params = QueryDict(self.request.GET.urlencode())
+
+        brand_filters = query_params.getlist("brand")
+        type_filters = query_params.getlist("type")
+        gender_filters = query_params.getlist("gender")
+
+        if gender_filters:
+            queryset = queryset.filter(gender__in=gender_filters)
+        if brand_filters:
+            queryset = queryset.filter(brand__brand_name__in=brand_filters)
+        if type_filters:
+            queryset = queryset.filter(type__in=type_filters)
         return queryset
 
 #********************************new ************************
