@@ -1,0 +1,33 @@
+version: '3.9'
+
+
+
+services:
+  app:
+    build: .
+    ports:
+      - "80:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=512012
+      - DB_NAME=store
+    networks:
+      - my-network
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=512012
+      - MYSQL_DATABASE=store
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=512012
+    volumes:
+      - ./mysql-data:/docker-entrypoint-initdb.d
+    networks:
+      - my-network
+      
+networks:
+  my-network:
