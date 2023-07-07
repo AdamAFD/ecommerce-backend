@@ -82,12 +82,15 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME':'store',
+        'HOST':'db',
+        'USER':'root',
+        'PASSWORD':'512012'
     }
 }
 
-ALLOWED_HOSTS = ['0.0.0.0','164.92.236.11','localhost']
+ALLOWED_HOSTS = ['*']
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 # AUTH_USER_MOL = 'customers.User'
